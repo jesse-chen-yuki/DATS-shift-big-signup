@@ -1,6 +1,5 @@
 # DATS-shift-signup
 
-/* 
 This program iterates through all operator and calls AssignRun function to determine a shift to be assigned to an operator for a big signup.
 Version 1.1
 Written by Jesse Xi Chen
@@ -23,4 +22,4 @@ For Ver 1.2
 
 For Ver 1.3
 -Allow continuation of sign up process in the middle of the list. Event trigger upon new response from the google form doucment (shift choice form).
-*/
+
