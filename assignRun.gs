@@ -1,26 +1,35 @@
 /*
 assign run number based on operator sign up slip
 
-@param {number} badge number of the operator
+@PARAM {number} badge number of the operator
 @return {number} run number assigned to operator
+
+@custom function
 */
 
-function AssignRun(badge) {
+function assignRun(badge) {
   var ss = SpreadsheetApp.getActiveSpreadsheet();
   SpreadsheetApp.setActiveSheet(ss.getSheets()[0]);
   SpreadsheetApp.getActiveSpreadsheet();
 
-  console.log('hello');
+  //console.info('In assignRun');
   //badge = 6004
   var taken = findTaken(badge);
-  console.log('taken list ' + taken);
+  //console.log('taken list ' + taken);
   var selectionList = findSelection(badge);
-  console.log('selection list '+selectionList);
-  var shiftChoice = makeSelection(badge, taken, selectionList)
-  console.log('final choice '+shiftChoice);
+  //console.log('selection list '+selectionList);
+  var shiftChoice = makeSelection(taken, selectionList)
+  //console.log('final choice '+shiftChoice);
 
   return shiftChoice;
+  
+  /*return new Promise((resolve,reject)=>{
+    setTimeout(() => {
+    resolve(shiftChoice);
+    }, 1000)}); */
 }
+
+
 
 /* select the first shift available and add to main list
 @PARAM {number} badge number of the operator
@@ -29,12 +38,12 @@ function AssignRun(badge) {
 @custum function
 */
 
-function makeSelection(badge,takenList,selectionList){
+function makeSelection(takenList,selectionList){
   //var ss = SpreadsheetApp.getActiveSpreadsheet();
   //SpreadsheetApp.setActiveSheet(ss.getSheets()[0]);
   //ss = SpreadsheetApp.getActiveSpreadsheet();
   // console.log('selection list ' + selectionList);
-  for (i = 0; i<selectionList.length;i++){
+  for (var i = 0; i<selectionList.length;i++){
     //console.log('selection '+selectionList[i]);
     if (takenList.indexOf(selectionList[i])==-1){
       return selectionList[i]
@@ -43,7 +52,6 @@ function makeSelection(badge,takenList,selectionList){
 }
 
 /* find out the shift choices operaters chose
-
 @PARAM {number} badge number of the operator
 @RETURN {list} of operator selection
 @costume function
@@ -60,7 +68,11 @@ function findSelection(badge){
   var selected = []
 
   for (var i = 1; i < values.length; i++) {
-    //console.log(values[i]);
+    /*
+    console.log(values[i]);
+    console.log(values[i][2]);
+    console.log(badge); 
+    */
 
     if (values[i][2] === badge){
       for (j = 3;j<values[i].length;j++){
@@ -73,6 +85,7 @@ function findSelection(badge){
     }
   }  
 }
+
 
 /* find out the shift choices already taken
 
@@ -103,3 +116,8 @@ function findTaken(badge) {
     
   }  
 }
+
+/*
+export function assignRun(badge){
+  console.log('second function called!!')
+} */
