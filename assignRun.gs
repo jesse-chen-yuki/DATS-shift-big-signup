@@ -7,20 +7,24 @@ assign run number based on operator sign up slip
 @custom function
 */
 
-function assignRun(badge) {
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  SpreadsheetApp.setActiveSheet(ss.getSheets()[0]);
-  SpreadsheetApp.getActiveSpreadsheet();
+function assignRun(badge,taken) {
+  //var ss = SpreadsheetApp.getActiveSpreadsheet();
+  //SpreadsheetApp.setActiveSheet(ss.getSheets()[0]);
+  //SpreadsheetApp.getActiveSpreadsheet();
 
   //console.info('In assignRun');
   //badge = 6004
-  var taken = findTaken(badge);
+  //var taken = findTaken(badge);
   //console.log('taken list ' + taken);
   var selectionList = findSelection(badge);
   //console.log('selection list '+selectionList);
   var shiftChoice = makeSelection(taken, selectionList)
   //console.log('final choice '+shiftChoice);
-
+  if (DEBUG){
+    console.log('taken list ' + taken);
+    console.log('selection list '+selectionList);
+    console.log('final choice '+shiftChoice);
+  }
   return shiftChoice;
   
   /*return new Promise((resolve,reject)=>{
@@ -59,13 +63,15 @@ function makeSelection(takenList,selectionList){
 */
 
 function findSelection(badge){
-  var ss = SpreadsheetApp.getActiveSpreadsheet();
-  SpreadsheetApp.setActiveSheet(ss.getSheets()[2]);
-  ss = SpreadsheetApp.getActiveSpreadsheet();
-  var sheet = ss.getActiveSheet();
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheets()[2];
+  //SpreadsheetApp.setActiveSheet(ss.getSheets()[2]);
+  //var sheet = ss.getSheetByName("sheetName");
+  //var sheet = ss.getActiveSheet();
   var dataRange = sheet.getDataRange();
   var values = dataRange.getValues();
   var selected = []
+
+  //var badgeRange = sheet.
 
   for (var i = 1; i < values.length; i++) {
     /*
@@ -79,8 +85,8 @@ function findSelection(badge){
         selected.push(values[i][j]);
       }
       
-      SpreadsheetApp.setActiveSheet(ss.getSheets()[0]);
-      SpreadsheetApp.getActiveSpreadsheet();
+      //SpreadsheetApp.setActiveSheet(ss.getSheets()[0]);
+      //SpreadsheetApp.getActiveSpreadsheet();
       return selected;
     }
   }  
